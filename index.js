@@ -8,6 +8,7 @@ try {
   const token = core.getInput('token');
   const message = core.getInput('message');
   const messagetype = core.getInput('messagetype');
+  const threadId = core.getInput('threadId');
 
   // Debug output
   core.info(`homeserver: ${homeserver}`);
@@ -15,6 +16,7 @@ try {
   core.info(`token: ${token}`);
   core.info(`message: ${message}`);
   core.info(`messagetype: ${messagetype}`);
+  core.info(`threadId: ${threadId}`);
 
   // Create client object
   const client = sdk.createClient({
@@ -38,7 +40,8 @@ try {
     formatted_body: processedMessage,
   };
 
-  client.sendEvent(channel, 'm.room.message', content, '').then(() => {
+  client.sendEvent(channel, threadId.length > 0 ? threadId : null, 'm.room.message', content, '').then((event) => {
+    core.setOutput('eventId', event.event_id);
   // message sent successfully
   }).catch((err) => {
     core.error(err);

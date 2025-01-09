@@ -1,4 +1,3 @@
-
 # Created by https://www.toptal.com/developers/gitignore/api/node,vim
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,vim
 
@@ -87,7 +86,7 @@ typings/
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+# dist  # Commenting out dist since we need to commit the built files for GitHub Actions
 
 # Gatsby files
 .cache/

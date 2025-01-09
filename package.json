@@ -4,7 +4,8 @@
   "description": "Send messages to Matrix rooms from a GitHub action",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf dist && ncc build -o dist index.js"
   },
   "repository": {
     "type": "git",

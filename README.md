@@ -63,12 +63,25 @@ jobs:
     name: Send message via Matrix
     steps:
     - name: Send message to test channel
-      id: matrix-chat-message
-      uses: fadenb/matrix-chat-message@v0.0.6
+      id: matrix-chat-message-start
+      uses: jom/matrix-chat-message@latest
       with:
         homeserver: 'matrix.org'
         token: ${{ secrets.MATRIX_TOKEN }}
         channel: '<INSERT YOUR ROOM ID HERE>'
+        threadId: ${{ steps.slack.outputs.message_id }}
+        message: |
+          This is an *example message* using **markdown** for formatting.\
+          Use a `\` character at the end of a line to cause a linebreak (the whole message is treated as markdown).\
+          You can use variables like ${{ github.sha }} anywhere.
+    - name: Send final message to test channel
+      id: matrix-chat-message-end
+      uses: jom/matrix-chat-message@latest
+      with:
+        homeserver: 'matrix.org'
+        token: ${{ secrets.MATRIX_TOKEN }}
+        channel: '<INSERT YOUR ROOM ID HERE>'
+        threadId: ${{ steps.matrix-chat-message-start.outputs.eventId }}
         message: |
           This is an *example message* using **markdown** for formatting.\
           Use a `\` character at the end of a line to cause a linebreak (the whole message is treated as markdown).\
