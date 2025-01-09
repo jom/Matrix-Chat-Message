@@ -29,14 +29,21 @@ try {
     core.info('Joined channel');
   });
 
-  // render markdown in message
-  const processedMessage = md.render(message);
+  // render markdown in message if it doesn't contain HTML.
+  let processedMessage = message;
+  let plainTextMessage = message;
+  if (!message.match(/<[^>]*>/)) {
+    processedMessage = md.render(message);
+  } else {
+    // Strip HTML tags from message
+    plainTextMessage = message.replace(/<[^>]*>/g, '');
+  }
 
   // Send message
   const content = {
     msgtype: messagetype,
     format: 'org.matrix.custom.html',
-    body: message,
+    body: plainTextMessage,
     formatted_body: processedMessage,
   };
 

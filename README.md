@@ -69,7 +69,6 @@ jobs:
         homeserver: 'matrix.org'
         token: ${{ secrets.MATRIX_TOKEN }}
         channel: '<INSERT YOUR ROOM ID HERE>'
-        threadId: ${{ steps.slack.outputs.message_id }}
         message: |
           This is an *example message* using **markdown** for formatting.\
           Use a `\` character at the end of a line to cause a linebreak (the whole message is treated as markdown).\
